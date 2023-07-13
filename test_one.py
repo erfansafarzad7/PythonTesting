@@ -1,3 +1,4 @@
+import unittest
 import pytest
 import one
 
@@ -90,18 +91,93 @@ L 6
 
 # ----------------------------------------------------
 """
-L 6
+L 7
 """
 
 
-class TestOne:
-    def test_add(self):
-        assert one.add(1, 2) == 3
-        assert one.add(-1, 2) == 1
+# class TestOne:
+#     def test_add(self):
+#         assert one.add(1, 2) == 3
+#         assert one.add(-1, 2) == 1
+#
+#     def test_division(self):
+#         assert one.division(10, 2) == 5
+#         with pytest.raises(ZeroDivisionError):
+#             one.division(2, 0)
 
-    def test_division(self):
-        assert one.division(10, 2) == 5
-        with pytest.raises(ZeroDivisionError):
-            one.division(2, 0)
+# ----------------------------------------------------
+"""
+L 8
+"""
+
+
+class TakeTests(unittest.TestCase):
+    def test_simple_take(self):
+        t = one.take(range(10), 5)
+        self.assertEqual(t, [0, 1, 2, 3, 4])
+
+    def test_null_take(self):
+        t = one.take(range(10), 0)
+        self.assertEqual(t, [])
+
+    def test_take_too_much(self):
+        t = one.take(range(5), 10)
+        self.assertEqual(t, [0, 1, 2, 3, 4])
+
+    def test_negative_take(self):
+        self.assertRaises(ValueError, lambda: one.take(range(10), -3))
+
+
+class ChunkedTests(unittest.TestCase):
+    def test_even(self):
+        self.assertEqual(
+            list(one.chunked('abcdef', 3)),
+            [['a', 'b', 'c'], ['d', 'e', 'f']]
+        )
+
+    def test_odd(self):
+        self.assertEqual(
+            list(one.chunked('abcde', 3)),
+            [['a', 'b', 'c'], ['d', 'e']]
+        )
+
+    def test_none(self):
+        self.assertEqual(
+            list(one.chunked('abcdef', None)),
+            [['a', 'b', 'c', 'd', 'e', 'f']]
+        )
+
+    def test_strict_false(self):
+        self.assertEqual(
+            list(one.chunked('abcde', 3, strict=False)),
+            [['a', 'b', 'c'], ['d', 'e']]
+        )
+
+    def test_strict_true(self):
+
+        def f():
+            return list(one.chunked('abcde', 3, strict=True))
+
+        self.assertRaisesRegex(ValueError, 'iterator is not divisible by n', f)
+
+        self.assertEqual(
+            list(one.chunked('abcdef', 3, strict=True)),
+            [['a', 'b', 'c'], ['d', 'e', 'f']]
+        )
+
+    def test_strict_true_size_none(self):
+
+        def f():
+            return list(one.chunked('abcde', None, strict=True))
+
+        self.assertRaisesRegex(ValueError, 'n cant be None when strict is True', f)
+
+# ----------------------------------------------------
+
+
+# ----------------------------------------------------
+
+if __name__ == '__main__':
+    unittest.main()
 
 # ----------------------------------------------------

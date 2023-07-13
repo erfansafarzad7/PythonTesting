@@ -110,20 +110,50 @@ L 6
 
 # ----------------------------------------------------
 """
-L 6
+L 7
 """
 
 # pytest test_one.py
 # pytest test_one.py --resultlog=result.log (creates a log of test)
 
 
-def add(x, y):
-    return x + y
+# def add(x, y):
+#     return x + y
+#
+#
+# def division(x, y):
+#     if y == 0:
+#         raise ZeroDivisionError('cant divide by zero !')
+#     return x // y
+
+# ----------------------------------------------------
+"""
+L 8
+"""
+from itertools import islice
+from functools import partial
 
 
-def division(x, y):
-    if y == 0:
-        raise ZeroDivisionError('cant divide by zero !')
-    return x // y
+l = [1, 2, 3, 4, 5, 6, 7]
+
+
+def take(iterable, n):
+    return list(islice(iterable, n))
+
+
+def chunked(iterable, n, strict=False):
+    iterator = iter(partial(take, iter(iterable), n), [])
+    if strict:
+        if n is None:
+            raise ValueError('n cant be None when strict is True')
+
+        def ret():
+            for chunk in iterator:
+                if len(chunk) != n:
+                    raise ValueError('iterator is not divisible by n')
+                yield chunk
+        return iter(ret())
+    else:
+        return iterator
 
 # ----------------------------------------------------
