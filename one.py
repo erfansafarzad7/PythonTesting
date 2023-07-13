@@ -40,14 +40,35 @@ L 2
 L 3
 """
 
+# python -m unittest test_one.py
 
-class Person:
-    def __init__(self, fname, lname):
-        self.fname = fname
-        self.lname = lname
 
-    def fullname(self):
-        return f"{self.fname} {self.lname}"
+# class Person:
+#     def __init__(self, fname, lname):
+#         self.fname = fname
+#         self.lname = lname
+#
+#     def fullname(self):
+#         return f"{self.fname} {self.lname}"
 
+# ----------------------------------------------------
+"""
+L 4
+"""
+
+# pip install nose
+# nosetests (runs all test_.py files and test_ methods)
+# nosetests test_one.py
+# nosetests -v test_one.py
+
+
+def add(x, y):
+    return x + y
+
+
+def division(x, y):
+    if y == 0:
+        raise ZeroDivisionError('cant divide by zero !')
+    return x // y
 
 # ----------------------------------------------------

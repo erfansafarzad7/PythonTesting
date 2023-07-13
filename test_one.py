@@ -21,17 +21,31 @@ L 3
 """
 
 
-class PersonTest(unittest.TestCase):
-    # before start testing
-    def setUp(self):
-        self.p1 = one.Person('erfan', 'safarzad')
+# class PersonTest(unittest.TestCase):
+#     # before start testing
+#     def setUp(self):
+#         self.p1 = one.Person('erfan', 'safarzad')
+#
+#     # after testing done
+#     def tearDown(self):
+#         print('Done..')
+#
+#     def test_fullname(self):
+#         self.assertEqual(self.p1.fullname(), 'erfan safarzad')
 
-    # after testing done
-    def tearDown(self):
-        print('Done..')
+# ----------------------------------------------------
+"""
+L 4
+"""
 
-    def test_fullname(self):
-        self.assertEqual(self.p1.fullname(), 'erfan safarzad')
+
+def test_add():
+    assert one.add(1, 2) == 3
+    assert one.add(-1, 2) == 1
+
+
+def test_division():
+    assert one.division(10, 2) == 5
 
 # ----------------------------------------------------
 
