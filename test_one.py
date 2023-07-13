@@ -39,13 +39,33 @@ L 4
 """
 
 
+# def test_add():
+#     assert one.add(1, 2) == 3
+#     assert one.add(-1, 2) == 1
+#
+#
+# def test_division():
+#     assert one.division(10, 2) == 5
+
+# ----------------------------------------------------
+"""
+L 5
+"""
+# it can be method or class
+
+
 def test_add():
     assert one.add(1, 2) == 3
     assert one.add(-1, 2) == 1
 
 
-def test_division():
-    assert one.division(10, 2) == 5
+class TestOne:
+    def test_add(self):
+        assert one.add(1, 2) == 3
+        assert one.add(-1, 2) == 1
+
+    def test_division(self):
+        assert one.division(10, 2) == 5
 
 # ----------------------------------------------------
 

@@ -62,6 +62,27 @@ L 4
 # nosetests -v test_one.py
 
 
+# def add(x, y):
+#     return x + y
+#
+#
+# def division(x, y):
+#     if y == 0:
+#         raise ZeroDivisionError('cant divide by zero !')
+#     return x // y
+
+# ----------------------------------------------------
+"""
+L 5
+"""
+
+# pip install pytest
+# pytest (runs all test_.py files and test_ methods)
+# pytest test_one.py
+# pytest -v test_one.py
+# it's ok with unittest codes
+
+
 def add(x, y):
     return x + y
 
