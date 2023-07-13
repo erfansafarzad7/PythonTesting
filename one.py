@@ -100,12 +100,30 @@ L 6
 # pytest test_one.py
 
 
-class Person:
-    def __init__(self, fname, lname):
-        self.fname = fname
-        self.lname = lname
+# class Person:
+#     def __init__(self, fname, lname):
+#         self.fname = fname
+#         self.lname = lname
+#
+#     def fullname(self):
+#         return f"{self.fname} {self.lname}"
 
-    def fullname(self):
-        return f"{self.fname} {self.lname}"
+# ----------------------------------------------------
+"""
+L 6
+"""
+
+# pytest test_one.py
+# pytest test_one.py --resultlog=result.log (creates a log of test)
+
+
+def add(x, y):
+    return x + y
+
+
+def division(x, y):
+    if y == 0:
+        raise ZeroDivisionError('cant divide by zero !')
+    return x // y
 
 # ----------------------------------------------------

@@ -71,21 +71,37 @@ L 5
 """
 L 6
 """
-import time
+# import time
 
 
-# class name most start with 'Test'
-class TestPerson:
-    # before start testing
-    @pytest.fixture
-    def setup(self):
-        self.p1 = one.Person('erfan', 'safarzad')
-        yield 'setup'
-        # after yield teardown running
-        # print was not working
-        time.sleep(2)
+# # class name most start with 'Test'
+# class TestPerson:
+#     # before start testing
+#     @pytest.fixture
+#     def setup(self):
+#         self.p1 = one.Person('erfan', 'safarzad')
+#         yield 'setup'
+#         # after yield teardown running
+#         # print was not working
+#         time.sleep(2)
+#
+#     def test_fullname(self, setup):
+#         assert self.p1.fullname() == 'erfan safarzad'
 
-    def test_fullname(self, setup):
-        assert self.p1.fullname() == 'erfan safarzad'
+# ----------------------------------------------------
+"""
+L 6
+"""
+
+
+class TestOne:
+    def test_add(self):
+        assert one.add(1, 2) == 3
+        assert one.add(-1, 2) == 1
+
+    def test_division(self):
+        assert one.division(10, 2) == 5
+        with pytest.raises(ZeroDivisionError):
+            one.division(2, 0)
 
 # ----------------------------------------------------
