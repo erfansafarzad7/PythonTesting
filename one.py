@@ -130,30 +130,46 @@ L 7
 """
 L 8
 """
-from itertools import islice
-from functools import partial
+# from itertools import islice
+# from functools import partial
 
 
-l = [1, 2, 3, 4, 5, 6, 7]
+# l = [1, 2, 3, 4, 5, 6, 7]
 
 
-def take(iterable, n):
-    return list(islice(iterable, n))
+# def take(iterable, n):
+#     return list(islice(iterable, n))
 
 
-def chunked(iterable, n, strict=False):
-    iterator = iter(partial(take, iter(iterable), n), [])
-    if strict:
-        if n is None:
-            raise ValueError('n cant be None when strict is True')
+# def chunked(iterable, n, strict=False):
+#     iterator = iter(partial(take, iter(iterable), n), [])
+#     if strict:
+#         if n is None:
+#             raise ValueError('n cant be None when strict is True')
+#
+#         def ret():
+#             for chunk in iterator:
+#                 if len(chunk) != n:
+#                     raise ValueError('iterator is not divisible by n')
+#                 yield chunk
+#         return iter(ret())
+#     else:
+#         return iterator
 
-        def ret():
-            for chunk in iterator:
-                if len(chunk) != n:
-                    raise ValueError('iterator is not divisible by n')
-                yield chunk
-        return iter(ret())
-    else:
-        return iterator
+# ----------------------------------------------------
+"""
+L 9
+"""
+_marker = object()
+
+
+def first(iterable, default=_marker):
+    try:
+        return next(iter(iterable))
+    except StopIteration as e:
+        if default is _marker:
+            raise ValueError('first() was called on an iterable,'
+                             ' and no default value was provided.') from e
+        return default
 
 # ----------------------------------------------------

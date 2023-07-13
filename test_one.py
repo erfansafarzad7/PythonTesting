@@ -111,66 +111,93 @@ L 8
 """
 
 
-class TakeTests(unittest.TestCase):
-    def test_simple_take(self):
-        t = one.take(range(10), 5)
-        self.assertEqual(t, [0, 1, 2, 3, 4])
+# class TakeTests(unittest.TestCase):
+#     def test_simple_take(self):
+#         t = one.take(range(10), 5)
+#         self.assertEqual(t, [0, 1, 2, 3, 4])
+#
+#     def test_null_take(self):
+#         t = one.take(range(10), 0)
+#         self.assertEqual(t, [])
+#
+#     def test_take_too_much(self):
+#         t = one.take(range(5), 10)
+#         self.assertEqual(t, [0, 1, 2, 3, 4])
+#
+#     def test_negative_take(self):
+#         self.assertRaises(ValueError, lambda: one.take(range(10), -3))
+#
+#
+# class ChunkedTests(unittest.TestCase):
+#     def test_even(self):
+#         self.assertEqual(
+#             list(one.chunked('abcdef', 3)),
+#             [['a', 'b', 'c'], ['d', 'e', 'f']]
+#         )
+#
+#     def test_odd(self):
+#         self.assertEqual(
+#             list(one.chunked('abcde', 3)),
+#             [['a', 'b', 'c'], ['d', 'e']]
+#         )
+#
+#     def test_none(self):
+#         self.assertEqual(
+#             list(one.chunked('abcdef', None)),
+#             [['a', 'b', 'c', 'd', 'e', 'f']]
+#         )
+#
+#     def test_strict_false(self):
+#         self.assertEqual(
+#             list(one.chunked('abcde', 3, strict=False)),
+#             [['a', 'b', 'c'], ['d', 'e']]
+#         )
+#
+#     def test_strict_true(self):
+#
+#         def f():
+#             return list(one.chunked('abcde', 3, strict=True))
+#
+#         self.assertRaisesRegex(ValueError, 'iterator is not divisible by n', f)
+#
+#         self.assertEqual(
+#             list(one.chunked('abcdef', 3, strict=True)),
+#             [['a', 'b', 'c'], ['d', 'e', 'f']]
+#         )
+#
+#     def test_strict_true_size_none(self):
+#
+#         def f():
+#             return list(one.chunked('abcde', None, strict=True))
+#
+#         self.assertRaisesRegex(ValueError, 'n cant be None when strict is True', f)
 
-    def test_null_take(self):
-        t = one.take(range(10), 0)
-        self.assertEqual(t, [])
-
-    def test_take_too_much(self):
-        t = one.take(range(5), 10)
-        self.assertEqual(t, [0, 1, 2, 3, 4])
-
-    def test_negative_take(self):
-        self.assertRaises(ValueError, lambda: one.take(range(10), -3))
+# ----------------------------------------------------
+"""
+L 9
+"""
+import traceback
 
 
-class ChunkedTests(unittest.TestCase):
-    def test_even(self):
-        self.assertEqual(
-            list(one.chunked('abcdef', 3)),
-            [['a', 'b', 'c'], ['d', 'e', 'f']]
-        )
+class FirstTest(unittest.TestCase):
+    def test_many(self):
+        self.assertEqual(one.first(x for x in range(4)), 0)
 
-    def test_odd(self):
-        self.assertEqual(
-            list(one.chunked('abcde', 3)),
-            [['a', 'b', 'c'], ['d', 'e']]
-        )
+    def tast_one(self):
+        self.assertEqual(one.first([3]), 3)
 
-    def test_none(self):
-        self.assertEqual(
-            list(one.chunked('abcdef', None)),
-            [['a', 'b', 'c', 'd', 'e', 'f']]
-        )
+    def test_default(self):
+        self.assertEqual(one.first([], 'abc'), 'abc')
 
-    def test_strict_false(self):
-        self.assertEqual(
-            list(one.chunked('abcde', 3, strict=False)),
-            [['a', 'b', 'c'], ['d', 'e']]
-        )
-
-    def test_strict_true(self):
-
-        def f():
-            return list(one.chunked('abcde', 3, strict=True))
-
-        self.assertRaisesRegex(ValueError, 'iterator is not divisible by n', f)
-
-        self.assertEqual(
-            list(one.chunked('abcdef', 3, strict=True)),
-            [['a', 'b', 'c'], ['d', 'e', 'f']]
-        )
-
-    def test_strict_true_size_none(self):
-
-        def f():
-            return list(one.chunked('abcde', None, strict=True))
-
-        self.assertRaisesRegex(ValueError, 'n cant be None when strict is True', f)
+    def test_empty_stop_iteration(self):
+        try:
+            one.first([])
+        except ValueError:
+            formatted_exec = traceback.format_exc()
+            self.assertIn('StopIteration', formatted_exec)
+            self.assertIn('The above exception was the direct cause', formatted_exec)
+        else:
+            self.fail()
 
 # ----------------------------------------------------
 
