@@ -83,13 +83,29 @@ L 5
 # it's ok with unittest codes
 
 
-def add(x, y):
-    return x + y
+# def add(x, y):
+#     return x + y
+#
+#
+# def division(x, y):
+#     if y == 0:
+#         raise ZeroDivisionError('cant divide by zero !')
+#     return x // y
+
+# ----------------------------------------------------
+"""
+L 6
+"""
+
+# pytest test_one.py
 
 
-def division(x, y):
-    if y == 0:
-        raise ZeroDivisionError('cant divide by zero !')
-    return x // y
+class Person:
+    def __init__(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+
+    def fullname(self):
+        return f"{self.fname} {self.lname}"
 
 # ----------------------------------------------------
