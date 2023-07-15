@@ -160,16 +160,42 @@ L 8
 """
 L 9
 """
+# _marker = object()
+
+
+# def first(iterable, default=_marker):
+#     try:
+#         return next(iter(iterable))
+#     except StopIteration as e:
+#         if default is _marker:
+#             raise ValueError('first() was called on an iterable,'
+#                              ' and no default value was provided.') from e
+#         return default
+
+# ----------------------------------------------------
+"""
+L 10
+"""
+from collections import deque
+from collections.abc import Sequence
+
+
 _marker = object()
 
 
-def first(iterable, default=_marker):
+def last(iterable, default=_marker):
     try:
-        return next(iter(iterable))
-    except StopIteration as e:
+        if isinstance(iterable, Sequence):
+            return iterable[-1]
+        elif hasattr(iterable, '__reversed__'):
+            return next(reversed(iterable))
+        else:
+            return deque(iterable, maxlen=1)[-1]
+    except (IndexError, TypeError, StopIteration):
         if default is _marker:
-            raise ValueError('first() was called on an iterable,'
-                             ' and no default value was provided.') from e
+            raise ValueError(
+                'last() was called on an empty iterable. and no default was provided.'
+            )
         return default
 
 # ----------------------------------------------------
